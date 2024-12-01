@@ -27,32 +27,19 @@ cp .env.example .env
 Create a `.env` that looks like this:
 
 ```bash
-# OpenAI API Key for security commands feature
-OPENAI_API_KEY=insert-api-key
-
 # Server configuration
-PORT=8080
+PORT=3000
 HOST=127.0.0.1
-CORS_ORIGIN=http://localhost:8080
+CORS_ORIGIN=http://localhost:3000
 
 # Security
-JWT_SECRET=insert-jwt-here
+JWT_SECRET=insert-jwt-token
+
+# Security commands pane (optional)
+OPENAI_API_KEY=insert-api-key
 ```
 
-`.env` information:
-
-`OPENAI_API_KEY` is used to connect to OpenAI's API for generating security command suggestions. This key is optional - if not provided, the security commands feature will be disabled.
-
-`PORT` defines which port the server will listen on. The default is 8080 but this can be changed if needed.
-
-`HOST` specifies the network interface the server will bind to. Using 127.0.0.1 (localhost) means the server will only accept connections from the local machine.
-
-`CORS_ORIGIN` sets the allowed origin for Cross-Origin Resource Sharing. Since the frontend runs on localhost:8080 by default, this matches that address to allow secure client-server communication.
-
-`JWT_SECRET` is used to sign and verify JSON Web Tokens for authentication. This should be a long, random string to ensure security. You can generate one using the command provided in the README.
-
-
-Generate secure `JWT_secret` in terminal with this command (use output as the JWT_SECRET value in your .env file):
+Generate secure `JWT_secret` in terminal with this command (use output as the `JWT_SECRET` value in your .env file):
 
 ```bash
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
