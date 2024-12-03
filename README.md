@@ -2,6 +2,16 @@
 
 A simple locally hosted dashboard to view real-time information about your Mac.
 
+## Features
+
+- Real-time system metrics monitoring
+- Process management- Network connections tracking
+- Storage analytics
+- Security status monitoring
+- Active sessions tracking
+- Dark/light theme support
+- GitHub integration
+
 ## Screenshots
 
 ### Light Theme
@@ -62,15 +72,6 @@ npm start
 
 Access in browser: `http://localhost:8080`
 
-## Features
-
-- Real-time system metrics monitoring
-- Process management- Network connections tracking
-- Storage analytics
-- Security status monitoring
-- Active sessions tracking
-- Dark/light theme support
-- GitHub integration
 
 ## WebSocket Events
 
