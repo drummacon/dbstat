@@ -2,6 +2,14 @@
 
 A simple locally hosted dashboard to view real-time information about your Mac.
 
+## Screenshots
+
+### Light Theme
+![Light Theme Screenshot](./assets/images/app-screenshot-light.png)
+
+### Dark Theme
+![Dark Theme Screenshot](./assets/images/app-screenshot-dark.png)
+
 ## Requirements
 
 - Node.js 16+
@@ -30,7 +38,7 @@ Create a `.env` that looks like this:
 # Server configuration
 PORT=3000
 HOST=127.0.0.1
-CORS_ORIGIN=http://localhost:3000
+CORS_ORIGIN=http://127.0.0.1:3000
 
 # Security
 JWT_SECRET=insert-jwt-token

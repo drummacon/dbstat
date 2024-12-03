@@ -92,12 +92,128 @@ function updateThemeToggleButton(theme) {
 
 function renderNetworkPanel(data) {
   const networkContent = document.getElementById('network-info');
-  if (!data || !data.hostname || !data.interfaces) {
+  if (!data || !data.interfaces) {
     networkContent.innerHTML = '<div class="error-message">Network information unavailable</div>';
     return;
   }
 
-  const { dns = { servers: [] }, connections = { established: [], listening: [] }, interfaces = [], netbios = {}, workgroup = 'Unknown' } = data;
+  const { dns = { servers: [] }, interfaces = [] } = data;
+
+  const dnsSection = `
+    <div class="section-header">DNS Configuration</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Server</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${dns.servers.length ? dns.servers.map(server => `
+                <tr>
+                    <td class="mono">${server}</td>
+                    <td class="mono">${server.includes(':') ? 'IPv6' : 'IPv4'}</td>
+                </tr>
+            `).join('') : '<tr><td colspan="2">No DNS servers configured</td></tr>'}
+        </tbody>
+    </table>
+  `;
+
+  const interfacesSection = `
+    <div class="section-header">Network Interfaces</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Interface</th>
+                <th>IP Address</th>
+                <th>Status</th>
+                <th>Speed</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${interfaces.length ? interfaces.map(iface => `
+                <tr>
+                    <td class="mono">${iface.iface || 'Unknown'}</td>
+                    <td class="mono">${iface.ip4 || iface.ip6 || 'N/A'}</td>
+                    <td class="mono">
+                        <span class="tag ${iface.operstate === 'up' ? 'tag-success' : 'tag-muted'}">
+                            ${(iface.operstate || 'Unknown').charAt(0).toUpperCase() + (iface.operstate || 'Unknown').slice(1)}
+                        </span>
+                    </td>
+                    <td class="mono">${iface.speed > 0 ? iface.speed + 'Mbps' : 'N/A'}</td>
+                </tr>
+            `).join('') : '<tr><td colspan="4">No network interfaces found</td></tr>'}
+        </tbody>
+    </table>
+  `;
+
+  networkContent.innerHTML = `${dnsSection}${interfacesSection}`;
+}
+
+function renderSecurityInfo(securityData) {
+  const securityContent = document.getElementById('security-info');
+  if (!securityData) {
+    securityContent.innerHTML = '<div class="error-message">Security information unavailable</div>';
+    return;
+  }
+
+  const activeSessions = securityData.activeUsers || [];
+  const includeIP = activeSessions.some(session => session.ip && session.ip !== 'N/A');
+
+  const hostnameSection = `
+    <div class="headSpcHost">
+      <div>
+          <span class="hostname-label">Hostname:</span>
+          <span class="mono hostname-value">${securityData.hostname || 'Unknown'}</span>
+      </div>
+      <div>
+          <span class="hostname-label">NetBIOS Name:</span>
+          <span class="mono">${securityData.netbios || 'Unknown'}</span>
+      </div>
+      <div>
+          <span class="hostname-label">Workgroup:</span>
+          <span class="mono">${securityData.workgroup || 'Unknown'}</span>
+      </div>
+    </div>
+  `;
+
+  const sessionsTable = `
+    <div class="section-header">Active User Sessions</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>TTY</th>
+                ${includeIP ? '<th>IP</th>' : ''}
+                <th>Login Date</th>
+                <th>Login Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${activeSessions.length ? activeSessions.map(session => `
+                <tr>
+                    <td class="mono">${session.user || 'Unknown'}</td>
+                    <td class="mono">${session.tty || 'N/A'}</td>
+                    ${includeIP ? `<td class="mono">${session.ip || 'N/A'}</td>` : ''}
+                    <td class="mono">${session.date || 'N/A'}</td>
+                    <td class="mono">${session.time || 'N/A'}</td>
+                </tr>
+            `).join('') : `<tr><td colspan="${includeIP ? 5 : 4}">No active sessions</td></tr>`}
+        </tbody>
+    </table>
+  `;
+
+  securityContent.innerHTML = hostnameSection + sessionsTable;
+}
+
+function renderNetworkPanel(data) {
+  const networkContent = document.getElementById('network-info');
+  if (!data || !data.interfaces) {
+    networkContent.innerHTML = '<div class="error-message">Network information unavailable</div>';
+    return;
+  }
+
+  const { dns = { servers: [] }, interfaces = [] } = data;
 
   const dnsSection = `
         <div class="section-header">DNS Configuration</div>
@@ -137,7 +253,7 @@ function renderNetworkPanel(data) {
                         <td class="mono">${iface.ip4 || iface.ip6 || 'N/A'}</td>
                         <td class="mono">
                             <span class="tag ${iface.operstate === 'up' ? 'tag-success' : 'tag-muted'}">
-                                ${(iface.operstate || 'unknown').toUpperCase()}
+                                ${(iface.operstate || 'Unknown').charAt(0).toUpperCase() + (iface.operstate || 'Unknown').slice(1)}
                             </span>
                         </td>
                         <td class="mono">${iface.speed > 0 ? iface.speed + 'Mbps' : 'N/A'}</td>
@@ -147,91 +263,7 @@ function renderNetworkPanel(data) {
         </table>
     `;
 
-  networkContent.innerHTML = `
-        <div class="network-hostname">
-            <span class="hostname-label">Hostname:</span>
-            <span class="mono hostname-value">${data.hostname || 'Unknown'}</span>
-        </div>
-        <div class="network-hostname">
-            <span class="hostname-label">NetBIOS Name:</span>
-            <span class="mono hostname-value">${netbios.name || 'Unknown'}</span>
-        </div>
-        <div class="network-hostname">
-            <span class="hostname-label">Workgroup:</span>
-            <span class="mono hostname-value">${workgroup || 'Unknown'}</span>
-        </div>
-        ${dnsSection}
-        ${interfacesSection}
-    `;
-}
-
-function renderSecurityInfo(securityData) {
-  const securityContent = document.getElementById('security-info');
-  if (!securityData) {
-    securityContent.innerHTML = '<div class="error-message">Security information unavailable</div>';
-    return;
-  }
-
-  const activeSessions = securityData.activeUsers || [];
-
-  const includeIP = activeSessions.some(session => session.ip && session.ip !== 'N/A');
-
-  const sessionsTable = `
-        <div class="section-header">Active User Sessions</div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>TTY</th>
-                    ${includeIP ? '<th>IP</th>' : ''}
-                    <th>Login Date</th>
-                    <th>Login Time</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${activeSessions.length ? activeSessions.map(session => `
-                    <tr>
-                        <td class="mono">${session.user || 'Unknown'}</td>
-                        <td class="mono">${session.tty || 'N/A'}</td>
-                        ${includeIP ? `<td class="mono">${session.ip || '192.168.1.1'}</td>` : ''}
-                        <td class="mono">${session.date || 'N/A'}</td>
-                        <td class="mono">${session.time || 'N/A'}</td>
-                    </tr>
-                `).join('') : `<tr><td colspan="${includeIP ? 5 : 4}">No active sessions</td></tr>`}
-            </tbody>
-        </table>
-    `;
-
-  const servicesStatus = `
-        <div class="section-header">Service Status</div>
-        <table>
-            <tbody>
-                <tr>
-                    <td>SSH Service</td>
-                    <td>
-                        <span class="mono tag ${securityData.sshStatus ? 'tag-success' : 'tag-error'}">
-                            ${securityData.sshStatus ? 'Running' : 'Stopped'}
-                        </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>FTP Service</td>
-                    <td>
-                        <span class="mono tag ${securityData.ftpStatus ? 'tag-success' : 'tag-error'}">
-                            ${securityData.ftpStatus ? 'Running' : 'Stopped'}
-                        </span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    `;
-
-  const securitySection = `
-        ${sessionsTable}
-        ${servicesStatus}
-    `;
-
-  securityContent.innerHTML = securitySection;
+  networkContent.innerHTML = `${dnsSection}${interfacesSection}`;
 }
 
 function updateProcessPanel(processes) {
@@ -255,7 +287,7 @@ function updateProcessPanel(processes) {
                 ${processes.map(proc => {
                     const sanitizedCPU = proc.cpu ? proc.cpu.toFixed(1) : 'N/A';
                     const sanitizedMemory = proc.mem ? `${proc.mem}%` : 'N/A';
-                    const sanitizedRAM = proc.ram || 'N/A'; // Use the `ram` value from the backend
+                    const sanitizedRAM = proc.ram || 'N/A';
                     return `
                         <tr>
                             <td class="mono">${proc.pid || 'N/A'}</td>
@@ -370,7 +402,7 @@ function updateStoragePanel(data) {
         <table class="disk-spc">
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>Installed</th>
                     <th>Type</th>
                     <th>Size</th>
                     <th>Interface</th>
@@ -552,14 +584,14 @@ function updatePortMonitor(connections = []) {
         <table>
             <thead>
                 <tr>
-                    <th>Port</th>
-                    <th>Service</th>
-                    <th>Description</th>
-                    <th>Status</th>
-                    <th>Connections</th>
-                    <th>Protocols</th>
-                    <th>IP Versions</th>
-                </tr>
+                  <th>Port</th>
+                  <th>Proto</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Count</th>
+                  <th>Layer</th>
+                  <th>IP</th>
+              </tr>
             </thead>
             <tbody>
                 ${portStatuses.map(port => `
@@ -719,8 +751,8 @@ function renderRepos(data) {
             <td class="repo-name">
               <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">${repo.name}</a>
             </td>
-            <td class="repo-language">
-              ${repo.language || 'N/A'}
+            <td>
+              <span title="${repo.language || 'N/A'}" class="rp-lang">${repo.language}</span>
             </td>
             <td class="repo-description">
               <div class="description-content">
@@ -738,6 +770,7 @@ function renderRepos(data) {
             </td>
             <td class="repo-date">
               ${history}
+              Updated: 
               ${new Date(repo.updated_at).toLocaleDateString()}
             </td>
             <td class="repo-stats">

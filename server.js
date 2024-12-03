@@ -227,15 +227,16 @@ io.on("connection", async (socket) => {
   try {
     const initialInfo = await getSystemInfo();
     if (initialInfo) {
-      socket.emit('system-update', initialInfo);
-      socket.emit('network-update', initialInfo.network || {});
-      socket.emit('process-update', initialInfo.processes || []);
-      socket.emit('storage-update', initialInfo.storage || {});
-      lastStates = {
-        network: initialInfo.network,
-        system: initialInfo,
-        storage: initialInfo.storage
-      };
+        socket.emit('system-update', initialInfo);
+        socket.emit('network-update', initialInfo.network || {});
+        socket.emit('process-update', initialInfo.processes || []);
+        socket.emit('storage-update', initialInfo.storage || {});
+        socket.emit('security-update', initialInfo.security || {});
+        lastStates = {
+            network: initialInfo.network,
+            system: initialInfo,
+            storage: initialInfo.storage
+        };
     }
   } catch (error) {
     console.error('Error emitting initial data:', error);
@@ -269,7 +270,14 @@ io.on("connection", async (socket) => {
   intervals.network = setInterval(async () => {
     const networkInfo = await getNetworkInfo();
     if (networkInfo && hasStateChanged(networkInfo, lastStates.network, 'network')) {
-      socket.emit('network-update', networkInfo);
+      socket.emit('network-update', {
+        hostname: networkInfo.hostname,
+        netbios: networkInfo.netbios,
+        workgroup: networkInfo.workgroup,
+        interfaces: networkInfo.interfaces,
+        dns: networkInfo.dns,
+        connections: networkInfo.connections
+      });
       lastStates.network = networkInfo;
     }
   }, UPDATE_INTERVALS.network);
@@ -277,8 +285,9 @@ io.on("connection", async (socket) => {
   intervals.system = setInterval(async () => {
     const info = await getSystemInfo();
     if (info && hasStateChanged(info, lastStates.system, 'system')) {
-      socket.emit('system-update', info);
-      lastStates.system = info;
+        socket.emit('system-update', info);
+        socket.emit('security-update', info.security || {});
+        lastStates.system = info;
     }
   }, UPDATE_INTERVALS.system);
 
@@ -503,7 +512,13 @@ async function getSystemInfo() {
       diskLayout,
       currentLoad,
       processes,
-      battery
+      battery,
+      sipStatus,
+      firewallStatus,
+      diskSpace,
+      activeUsersOutput,
+      hostnameInfo,
+      smbStatusOutput
     ] = await Promise.all([
       si.cpu(),
       si.mem(),
@@ -511,23 +526,13 @@ async function getSystemInfo() {
       si.diskLayout(),
       si.currentLoad(),
       si.processes(),
-      si.battery()
-    ]);
-
-    const [
-      sipStatus,
-      firewallStatus,
-      diskSpace,
-      activeUsersOutput,
-      sshStatusOutput,
-      ftpStatusOutput
-    ] = await Promise.all([
+      si.battery(),
       exec("csrutil status").catch(() => ({ stdout: '' })),
       exec("/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate").catch(() => ({ stdout: '0' })),
       exec("df -h"),
       exec("who"),
-      exec("lsof -i :22 | grep LISTEN").catch(() => ({ stdout: '' })),
-      exec("lsof -i :21 | grep LISTEN").catch(() => ({ stdout: '' }))
+      exec("scutil --get HostName || hostname").catch(() => ({ stdout: 'Unknown' })),
+      exec("smbutil status $(scutil --get HostName || hostname)").catch(() => ({ stdout: '' }))
     ]);
 
     const activeUsers = activeUsersOutput.stdout.trim().split('\n').filter(Boolean).map(line => {
@@ -557,9 +562,13 @@ async function getSystemInfo() {
         ip: ip
       };
     });
+    
+    const netbiosMatch = smbStatusOutput.stdout.match(/NetBIOS name:\s*(.+)/i);
+    const workgroupMatch = smbStatusOutput.stdout.match(/Workgroup:\s*(.+)/i);
 
-    const sshStatus = sshStatusOutput.stdout.trim().length > 0;
-    const ftpStatus = ftpStatusOutput.stdout.trim().length > 0;
+    const hostname = hostnameInfo?.stdout?.trim() || 'Unknown';
+    const netbios = netbiosMatch ? netbiosMatch[1].trim() : 'Unknown';
+    const workgroup = workgroupMatch ? workgroupMatch[1].trim() : 'Unknown';
 
     return {
       system: {
@@ -572,8 +581,9 @@ async function getSystemInfo() {
         sip: sipStatus.stdout.includes("enabled"),
         firewall: firewallStatus.stdout.includes("enabled") || firewallStatus.stdout.includes("1"),
         activeUsers: activeUsers,
-        sshStatus: sshStatus,
-        ftpStatus: ftpStatus
+        hostname: hostname,
+        netbios: netbios,
+        workgroup: workgroup
       },
       storage: {
         disks: diskLayout,
