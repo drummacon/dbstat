@@ -1,3 +1,5 @@
+// OPTIONAL: Can be used or dropped, wont effect any core features. This is currently implemented as one of the tab areas at the bottom of the page. Plans are to build this into a tool that can diagnose problems about the system in real time. 
+
 import OpenAI from "openai";
 import dotenv from "dotenv";
 dotenv.config();
