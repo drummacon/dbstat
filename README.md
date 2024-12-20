@@ -1,10 +1,6 @@
 # dbstat (macOS 13.0+)
 
-A simple locally hosted dashboard to view real-time information about your Mac.
-
-Should work in all browsers, have only tested the following:
- - Safari [:white_check_mark:]
- - Firefox [:white_check_mark:]
+<p>A simple locally hosted dashboard to view real-time information about your Mac.</p>
 
 ## Features
 
@@ -28,13 +24,19 @@ Should work in all browsers, have only tested the following:
 
 - Node.js 16+
 - macOS 11.0+ (Big Sur or later)
-- OpenAI API key (for security commands feature)
+- OpenAI API key (for security commands feature)<br>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Tested:<br></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;- &#x2705; Safari<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- &#x2705; Firefox</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<em>Should work in all browsers</em></p>
 
 ## Installation
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/dbstat
+git clone https://github.com/cgtwig/dbstat
 cd dbstat
 
 # Install dependencies
