@@ -1,3 +1,4 @@
+// List of commonly targeted networking ports for monitoring //
 const SECURITY_PORTS = [
    { port: 20, service: 'FTP Data', description: 'File Transfer Protocol Data Channel' },
    { port: 21, service: 'FTP Control', description: 'File Transfer Protocol Control' },
