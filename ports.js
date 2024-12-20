@@ -1,5 +1,5 @@
 // List of commonly targeted ports for monitoring //
-const SECURITY_PORTS = [
+const SEC_PORTS = [
    { port: 20, service: 'FTP Data', description: 'File Transfer Protocol Data Channel' },
    { port: 21, service: 'FTP Control', description: 'File Transfer Protocol Control' },
    { port: 22, service: 'SSH', description: 'Secure Shell Remote Access' },
@@ -95,4 +95,4 @@ const SECURITY_PORTS = [
    { port: 50000, service: 'VND', description: 'Video Network Discovery' }
 ];
 
-export default SECURITY_PORTS;
+export default SEC_PORTS;
