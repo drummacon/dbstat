@@ -2,6 +2,11 @@
 
 A simple locally hosted dashboard to view real-time information about your Mac.
 
+Browser compatibility
+ - Safari
+ - Firefox
+ - Should work in all browsers but have only tested those 2.
+
 ## Features
 
 - Real-time system metrics monitoring
