@@ -63,7 +63,7 @@ JWT_SECRET=insert-jwt-token
 OPENAI_API_KEY=insert-api-key
 ```
 
-Generate secure `JWT_secret` in terminal with this command (use output as the `JWT_SECRET` value in your .env file):
+Easily generate a `JWT_secret` using terminal with following command (use the output for the `JWT_SECRET` value in your .env file):
 
 ```bash
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
@@ -72,11 +72,11 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ## Usage
 
 ```bash
-# Launch dashboard
+# Launch the server and the dashboard with a single command
 npm start
 ```
 
-Access in browser: `http://localhost:8080`
+If your browser didn't open the dashboard automatically when running `npm start` simply open up a browser and view the dashboard by going to `http://localhost:3080`.
 
 
 ## WebSocket Events
