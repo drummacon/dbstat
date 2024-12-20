@@ -2,10 +2,9 @@
 
 A simple locally hosted dashboard to view real-time information about your Mac.
 
-Browser compatibility
- - Safari
- - Firefox
- - Should work in all browsers but have only tested those 2.
+Should work in all browsers, have only tested the following:
+ - Safari [:white_check_mark:]
+ - Firefox [:white_check_mark:]
 
 ## Features
 
