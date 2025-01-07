@@ -49,7 +49,7 @@ To enable this feature, just add your Open AI API key in the `.env` file as:
 `OPEN_AI_API=YOUR_KEY_GOES_HERE`  
 
 **Note**: If you enter your OpenAI API key, the app makes just one API call using `gpt-4o-mini` on load.  
-The 'regenerate' button will make a new API call each time you click it, and generates a new list of commands.  
+The 'regenerate' button will make a new API call each time you click it.  
 
 ### Installation
 
