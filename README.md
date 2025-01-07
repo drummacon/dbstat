@@ -1,38 +1,57 @@
-# dbstat (macOS 13.0+)
+## dbstat (macOS 13.0+)
 
-<p>A simple locally hosted dashboard to view real-time information about your Mac.</p>
+A simple locally hosted dashboard to view real-time information about your Mac.  
+This project is **open source** and welcomes contributions from the community.
 
-## Features
 
-- Real-time system metrics monitoring
-- Process management- Network connections tracking
-- Storage analytics
-- Security status monitoring
-- Active sessions tracking
-- Dark/light theme support
-- GitHub integration
+### Features
 
-## Screenshots
+- Real-time system metrics monitoring  
+- Process management  
+- Network connections tracking  
+- Storage analytics  
+- Security status monitoring  
+- Active sessions tracking  
+- Dark/light theme support  
+- GitHub integration  
 
-### Light Theme
-![Light Theme Screenshot](./assets/images/app-screenshot-light.png)
+### Screenshots
 
-### Dark Theme
-![Dark Theme Screenshot](./assets/images/app-screenshot-dark.png)
+![Light Theme Screenshot](./assets/images/app-screenshot-light.png)  
+*Light Theme*
 
-## Requirements
+![Dark Theme Screenshot](./assets/images/app-screenshot-dark.png)  
+*Dark Theme*
 
-- Node.js 16+
-- macOS 11.0+ (Big Sur or later)
-- OpenAI API key (for security commands feature)<br>
+### Requirements
 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;Tested:<br></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;- &#x2705; Safari<br>
-&nbsp;&nbsp;&nbsp;&nbsp;- &#x2705; Firefox</p>
+- **Node.js**: 16+  
+- **macOS**: 11.0+ (Big Sur or later)  
 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<em>Should work in all browsers</em></p>
+### Browsers Tested
 
-## Installation
+- ✅ Safari  
+- ✅ Firefox  
+
+### Dependencies
+
+- express `[4.17.1]`  
+- socket.io `[4.8.1]`  
+- systeminformation `[5.11.9]`  
+- jsonwebtoken `[9.0.2]`  
+- helmet `[8.0.0]`  
+- dotenv `[16.0.0]`  
+
+### Optional
+
+One of the tabs at the bottom of the page uses the Open AI API to generate some example commands.  
+To enable this feature, add your Open AI API key in the `.env` file as:  
+`OPEN_AI_API=YOUR_KEY_GOES_HERE`  
+
+**Note**: If you enter your OpenAI API key, the app makes one API call (`gpt-4o-mini`) on load.  
+The "Regenerate" button will make a new API call each time you click it, generating a new list of commands.  
+
+### Installation
 
 ```bash
 # Clone repository
@@ -44,11 +63,11 @@ npm install
 
 # Create and configure .env file
 cp .env.example .env
-```
+```  
 
-## Configuration
+### Configuration
 
-Create a `.env` that looks like this:
+Create a `.env` file with the following content:
 
 ```bash
 # Server configuration
@@ -63,47 +82,37 @@ JWT_SECRET=insert-jwt-token
 OPENAI_API_KEY=insert-api-key
 ```
 
-Easily generate a `JWT_secret` using terminal with following command (use the output for the `JWT_SECRET` value in your .env file):
+To generate a `JWT_SECRET`, use the following command in your terminal:
 
 ```bash
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-```
+```  
 
-## Usage
+### Usage
 
 ```bash
 # Launch the server and the dashboard with a single command
 npm start
 ```
 
-If your browser didn't open the dashboard automatically when running `npm start` simply open up a browser and view the dashboard by going to `http://localhost:3080`.
+If the dashboard doesn't open automatically, go to `http://localhost:3000` in your browser.  
 
+### WebSocket Events
 
-## WebSocket Events
+| Event            | Description              |  
+|------------------|--------------------------|  
+| `system-update`  | System metrics update    |  
+| `process-update` | Process list update      |  
+| `network-update` | Network stats update     |  
+| `storage-update` | Storage info update      |  
 
-| Event | Description |
-|-------|-------------|
-| `system-update` | System metrics update |
-| `process-update` | Process list update |
-| `network-update` | Network stats update |
-| `storage-update` | Storage info update |
+### API Routes
 
-## API Routes
+```bash
+GET  /api/get-token         # Get WebSocket auth token  
+POST /api/security-commands # Get security commands  
+```  
 
-```
-GET  /api/get-token         # Get WebSocket auth token
-POST /api/security-commands # Get security commands
-```
+### License
 
-## Dependencies
-
-- express
-- socket.io
-- systeminformation
-- jsonwebtoken
-- helmet
-- dotenv
-
-## License
-
-MIT
+This project is licensed under the MIT License and is **open source**. Contributions are welcome!
