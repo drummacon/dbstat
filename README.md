@@ -116,3 +116,5 @@ POST /api/security-commands # Get security commands
 ### License
 
 This project is licensed under the MIT License and is **open source**. Contributions are welcome!
+
+#macOS #dashboard #opensource #free #monitoring #metrics #networking #tracking #analytics #security #nodejs #spa #websocket #stats #data #mac-dashboard
