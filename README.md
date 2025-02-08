@@ -66,7 +66,7 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ```
 Generates a JWT token using terminal
 
-4. ### Open AI API setup (OPTIONAL - To keep this disabled - skip this step and go to step #5)
+4. **Open AI API setup (OPTIONAL) This is disabled by default. To keep it disabled, you can skip this step and go to step 5**
 This is a test feature  - The Open AI API is used for generating example terminal commands that can offer some help during forensic workflows. 
 How to enable: 
 - Find the last line in your `.env` file. It should look like this `# OPENAI_API_KEY=your-api-key`
@@ -74,34 +74,16 @@ How to enable:
 - Finally, replace `your-api-key` with your real Open AI API key
 **Note**: If enabled, 1 API call is made using the model `gpt-4o-mini` (Cost = less than $.01?). ALso...clicking the 'regenerate' wilew API request each time it's clicked.
 
-
-### Usage
+5. **Start app**
 
 ```bash
-# Launch the server and the dashboard with a single command
 npm start
 ```
+The server should now be running. To access, visit `http://localhost:3000` in your browser.  
 
-If the dashboard doesn't open automatically, go to `http://localhost:3000` in your browser.  
-
-### WebSocket Events
-
-| Event            | Description              |  
-|------------------|--------------------------|  
-| `system-update`  | System metrics update    |  
-| `process-update` | Process list update      |  
-| `network-update` | Network stats update     |  
-| `storage-update` | Storage info update      |  
-
-### API Routes
-
-```bash
-GET  /api/get-token         # Get WebSocket auth token  
-POST /api/security-commands # Get security commands  
-```  
+- If you experience a problem using the app, or would like to request new feature - please let us know over in the issues area.
 
 ### License
-
 This project is licensed under the MIT License and is **open source**. Contributions are welcome!
 
-#macOS #dashboard #opensource #free #monitoring #metrics #networking #tracking #analytics #security #nodejs #spa #websocket #stats #data #mac-dashboard
+#macosx #dashboard #blueteam #forensics #monitoring #metrics #networking #tracking #analytics #security #nodejs #spa #websocket #stats #data
