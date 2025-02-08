@@ -5,7 +5,7 @@ This project is provided as a free resource and community contributions are alwa
 ### Requirements:
 - **Node.js**: 16+  
 - **macOS**: 11.0+ (Big Sur or later)
-- **Browser**: ✅ Safari / ✅ Firefox (I only tested these 2 but any modern browser should work).
+- **Browser**: ✅ Safari / ✅ Firefox (I only tested these 2 but any modern browser should work)
 
 ### Real-time metrics supported (more will be added)
 - Network
