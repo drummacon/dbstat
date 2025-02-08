@@ -37,51 +37,55 @@ Additional features include...
 
 ### Installation
 
-```bash
-git clone https://github.com/cgtwig/dbstat
-cd dbstat
-```
-1. **Clone repo and go inside project folder**
+1. **Clone the repo and go inside the project folder**
+    ```bash
+    git clone https://github.com/cgtwig/dbstat
+    cd dbstat
+    ```
 
-```
-npm install
-```
 2. **Install required dependencies**
+    ```bash
+    npm install
+    ```
 
-```bash
-# Server configuration
-PORT=3000
-HOST=127.0.0.1
-CORS_ORIGIN=http://127.0.0.1:3000
+3. **Configure environment variables**
 
-# (REQUIRED) Replace `insert-here` using the terminal command provided in README.md
-JWT_SECRET=insert-token-here
+    ```bash
+    # Server configuration
+    PORT=3000
+    HOST=127.0.0.1
+    CORS_ORIGIN=http://127.0.0.1:3000
+    
+    # (REQUIRED) Replace `insert-here` using the terminal command provided in README.md
+    JWT_SECRET=insert-token-here
+    
+    # (OPTIONAL) Security command generation test feature
+    # OPENAI_API_KEY=your-api-key
+    ```
 
-# (OPTIONAL) Security command generation test feature
-# OPENAI_API_KEY=your-api-key
-```
-3. **Rename `.env-example` to `.env` and replace `JWT_SECRET` value using the command below**
-```bash
-node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-```
-Generates a JWT token using the terminal.
+4. **Rename `.env-example` to `.env` and replace `JWT_SECRET` value using the command below**
+    ```bash
+    node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+    ```
+    This generates a JWT token using the terminal.
 
-4. **OpenAI API setup (OPTIONAL)**
-This is a test feature - The OpenAI API is used for generating example terminal commands that can offer some help during forensic workflows. 
-How to enable: 
-- Find the last line in your `.env` file. It should look like this `# OPENAI_API_KEY=your-api-key`
-- Remove the `#` at the beginning of the line.
-- Finally, replace `your-api-key` with your real OpenAI API key.
-**Note**: If enabled, 1 API call is made using the model `gpt-4o-mini` (Cost = less than $0.01?). Also, clicking the 'regenerate' will make an API request each time it's clicked.
+5. **OpenAI API setup (OPTIONAL)**
+    This is a test feature - The OpenAI API is used for generating example terminal commands that can offer some help during forensic workflows. 
 
-5. **Start app**
+    **How to enable:**
+    - Find the last line in your `.env` file. It should look like this: `# OPENAI_API_KEY=your-api-key`
+    - Remove the `#` at the beginning of the line.
+    - Finally, replace `your-api-key` with your real OpenAI API key.
+    
+    **Note:** If enabled, 1 API call is made using the model `gpt-4o-mini` (Cost = less than $0.01?). Also, clicking the 'regenerate' will make an API request each time it's clicked.
 
-```bash
-npm start
-```
-The server should now be running. To access, visit `http://localhost:3000` in your browser.  
+6. **Start the app**
+    ```bash
+    npm start
+    ```
+    The server should now be running. To access it, visit `http://localhost:3000` in your browser.  
 
-- If you experience a problem using the app, or would like to request a new feature, please let us know in the issues section.
+    If you experience a problem using the app, or would like to request a new feature, please let us know in the issues section.
 
 ### License
 This project is licensed under the MIT License and is **open source**. Contributions are welcome!
