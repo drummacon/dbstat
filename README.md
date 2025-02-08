@@ -1,73 +1,52 @@
 ## dbstat (macOS 13.0+)
+Simple forensics dashboard for monitoring real time metrics  Mac., in . 
+This project is provided as a free resource and community contributions are always welcome. New to Git? First time committers are encouraged.
 
-A simple locally hosted dashboard to view real-time information about your Mac.  
-This project is **open source** and welcomes contributions from the community.
+### Requirements:
+- **Node.js**: 16+  
+- **macOS**: 11.0+ (Big Sur or later)
+- **Browser**: ✅ Safari / ✅ Firefox (I only tested these 2 but any modern browser should work).
 
-
-### Features
-
-- Real-time system metrics monitoring  
-- Process management  
-- Network connections tracking  
+### Real-time metrics supported (more will be added)
+- Network
+- Port watcher
+- Running processes
 - Storage analytics  
-- Security status monitoring  
-- Active sessions tracking  
-- Dark/light theme support  
-- GitHub integration  
+- Logged-in sessions
+- And many more!
 
-### Screenshots
+Additional features include...
+- Dark/light themes
+- GitHub integration
+- Open AI API support (optional) 
 
+### 
 ![Light Theme Screenshot](./assets/images/app-screenshot-light.png)  
 *Light Theme*
 
 ![Dark Theme Screenshot](./assets/images/app-screenshot-dark.png)  
 *Dark Theme*
 
-### Requirements
-
-- **Node.js**: 16+  
-- **macOS**: 11.0+ (Big Sur or later)  
-
-### Browsers Tested
-
-- ✅ Safari  
-- ✅ Firefox  
-
 ### Dependencies
-
 - express `[4.17.1]`  
 - socket.io `[4.8.1]`  
 - systeminformation `[5.11.9]`  
 - jsonwebtoken `[9.0.2]`  
 - helmet `[8.0.0]`  
-- dotenv `[16.0.0]`  
-
-### Optional
-
-This app by default includes a tab at the bottom of the page that makes use of the Open AI API to generate some example commands.  
-To enable this feature, just add your Open AI API key in the `.env` file as:  
-`OPEN_AI_API=YOUR_KEY_GOES_HERE`  
-
-**Note**: If you enter your OpenAI API key, the app makes just one API call using `gpt-4o-mini` on load.  
-The 'regenerate' button will make a new API call each time you click it.  
+- dotenv `[16.0.0]` 
 
 ### Installation
 
 ```bash
-# Clone repository
 git clone https://github.com/cgtwig/dbstat
 cd dbstat
+```
+1. **Clone repo and go inside project folder**
 
-# Install dependencies
+```
 npm install
-
-# Create and configure .env file
-cp .env.example .env
-```  
-
-### Configuration
-
-Create a `.env` file with the following content:
+```
+2. **Install required dependencies**
 
 ```bash
 # Server configuration
@@ -75,18 +54,26 @@ PORT=3000
 HOST=127.0.0.1
 CORS_ORIGIN=http://127.0.0.1:3000
 
-# Security
-JWT_SECRET=insert-jwt-token
+# (REQUIRED) Replace `insert-here` using the terminal command provided in README.md
+JWT_SECRET=insert-token-here
 
-# Security commands pane (optional)
-OPENAI_API_KEY=insert-api-key
+# (OPTIONAL) Security command generation test feature
+# OPENAI_API_KEY=your-api-key
 ```
-
-To generate a `JWT_SECRET`, use the following command in your terminal:
-
+3. **Rename `.env-example` to `.env` and replace `JWT_SECRET` value using the command below**
 ```bash
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-```  
+```
+Generates a JWT token using terminal
+
+4. ### Open AI API setup (OPTIONAL - To keep this disabled - skip this step and go to step #5)
+This is a test feature  - The Open AI API is used for generating example terminal commands that can offer some help during forensic workflows. 
+How to enable: 
+- Find the last line in your `.env` file. It should look like this `# OPENAI_API_KEY=your-api-key`
+- Remove the `#` at the beginning of the line
+- Finally, replace `your-api-key` with your real Open AI API key
+**Note**: If enabled, 1 API call is made using the model `gpt-4o-mini` (Cost = less than $.01?). ALso...clicking the 'regenerate' wilew API request each time it's clicked.
+
 
 ### Usage
 
