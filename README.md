@@ -22,15 +22,11 @@ This project is provided as a free resource, and community contributions are alw
 
 ### Screenshots
 
-<figure>
-  <img src="./assets/images/app-screenshot-light.png" alt="Light Theme Screenshot">
-  <figcaption>Light Theme</figcaption>
-</figure>
+![Light Theme Screenshot](./assets/images/app-screenshot-light.png)
+<p align="center">Light Theme</p>
 
-<figure>
-  <img src="./assets/images/app-screenshot-dark.png" alt="Dark Theme Screenshot">
-  <figcaption>Dark Theme</figcaption>
-</figure>
+![Dark Theme Screenshot](./assets/images/app-screenshot-dark.png)
+<p align="center">Dark Theme</p>
 
 ### Dependencies:
 | Package | Version |
