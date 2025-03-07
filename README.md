@@ -23,10 +23,10 @@ This project is provided as a free resource, and community contributions are alw
 ### Screenshots
 
 ![Light Theme Screenshot](./assets/images/app-screenshot-light.png)
-<p align="center">Light Theme</p>
+<small>**Figure 1:** Light Theme</small>
 
 ![Dark Theme Screenshot](./assets/images/app-screenshot-dark.png)
-<p align="center">Dark Theme</p>
+<small>**Figure 2:** Dark Theme</small>
 
 ### Dependencies:
 | Package | Version |
