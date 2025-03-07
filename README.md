@@ -22,11 +22,17 @@ This project is provided as a free resource, and community contributions are alw
 
 ### Screenshots
 
-![Light Theme Screenshot](./assets/images/app-screenshot-light.png)
-<small>**Figure 1:** Light Theme</small>
+<p align="center">
+  <img src="./assets/images/app-screenshot-light.png" alt="Light Theme Screenshot" width="700">
+  <br>
+  <span style="display: block; text-align: center; font-size: 90%; color: #666;">Light Theme</span>
+</p>
 
-![Dark Theme Screenshot](./assets/images/app-screenshot-dark.png)
-<small>**Figure 2:** Dark Theme</small>
+<p align="center">
+  <img src="./assets/images/app-screenshot-dark.png" alt="Dark Theme Screenshot" width="700">
+  <br>
+  <span style="display: block; text-align: center; font-size: 90%; color: #666;">Dark Theme</span>
+</p>
 
 ### Dependencies:
 | Package | Version |
