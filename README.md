@@ -1,13 +1,31 @@
+Screenshots
+<table>
+  <tr>
+    <td>
+      <figure style="margin: 0;">
+        <img src="./assets/images/app-screenshot-light.png" alt="Light Theme Screenshot" style="width: 300px; height: auto;"><br>
+        <figcaption style="font-size: 0.75em; text-align: left;">Light mode</figcaption>
+      </figure>
+    </td>
+    <td>
+      <figure style="margin: 0;">
+        <img src="./assets/images/app-screenshot-dark.png" alt="Dark Theme Screenshot" style="width: 300px; height: auto;"><br>
+        <figcaption style="font-size: 0.75em; text-align: left;">Dark mode</figcaption>
+      </figure>
+    </td>
+  </tr>
+</table>
+
 ## dbstat (macOS 13.0+)
 A simple forensics dashboard for monitoring real-time metrics on macOS.
 This project is provided as a free resource, and community contributions are always welcome. New to Git? First-time committers are encouraged.
 
-### Requirements:
+#### Requirements:
 - **Node.js**: 16+  
 - **macOS**: 11.0+ (Big Sur or later)
 - **Browser**: ✅ Safari / ✅ Firefox (Compatible with any modern browser)
 
-### Real-time metrics supported (more will be added):
+#### Real-time metrics supported (more will be added):
 - Network
 - Port watcher
 - Running processes
@@ -15,26 +33,12 @@ This project is provided as a free resource, and community contributions are alw
 - Logged-in sessions
 - And many more!
 
-### Additional features:
+#### Additional features:
 - Dark/light themes
 - GitHub integration
 - OpenAI API support (optional)
 
-### Screenshots
-
-<p align="center">
-  <img src="./assets/images/app-screenshot-light.png" alt="Light Theme Screenshot" width="700">
-  <br>
-  <span style="display: block; text-align: center; font-size: 90%; color: #666;">Light Theme</span>
-</p>
-
-<p align="center">
-  <img src="./assets/images/app-screenshot-dark.png" alt="Dark Theme Screenshot" width="700">
-  <br>
-  <span style="display: block; text-align: center; font-size: 90%; color: #666;">Dark Theme</span>
-</p>
-
-### Dependencies:
+#### Dependencies:
 | Package | Version |
 |---------|---------|
 | express | `4.17.1` |
@@ -44,7 +48,7 @@ This project is provided as a free resource, and community contributions are alw
 | helmet | `8.0.0` |
 | dotenv | `16.0.0` |
 
-### Installation
+#### Installation
 
 1. **Clone the repo and navigate to the project directory**
     ```bash
