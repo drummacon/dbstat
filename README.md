@@ -56,7 +56,7 @@ Additional features include...
     HOST=127.0.0.1
     CORS_ORIGIN=http://127.0.0.1:3000
     
-    # (REQUIRED) Replace `insert-here` using the terminal command provided in README.md
+    # (REQUIRED) Replace `insert-token-here` using the terminal command provided in README.md
     JWT_SECRET=insert-token-here
     
     # (OPTIONAL) Security command generation test feature
