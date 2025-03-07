@@ -13,7 +13,7 @@ import { createHash } from 'crypto';
 import helmet from "helmet";
 import jwt from "jsonwebtoken";
 import getSecurityCommands from "./assets/openai.js"
-import PORTS from './ports.js';
+import SEC_PORTS from './ports.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const exec = promisify(execCallback);
 const PORT = process.env.PORT || 3000;
