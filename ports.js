@@ -1,5 +1,5 @@
 // List of commonly targeted ports for monitoring //
-const SEC_PORTS = [
+const PORTS = [
    { port: 20, service: 'FTP Data', description: 'File Transfer Protocol Data Channel' },
    { port: 21, service: 'FTP Control', description: 'File Transfer Protocol Control' },
    { port: 22, service: 'SSH', description: 'Secure Shell Remote Access' },
