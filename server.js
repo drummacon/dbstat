@@ -558,7 +558,7 @@ import { spawn } from 'child_process';
 httpServer.listen(PORT, HOST, () => {
   console.log(`Server running on http://${HOST}:${PORT}`);
 
-  // Open browser automatically //
+  // open browser //
   const child = spawn('open', [`http://${HOST}:${PORT}`]);
 
   child.on('error', (err) => {
